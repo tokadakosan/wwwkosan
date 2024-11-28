@@ -12,8 +12,11 @@
 // 個別のパラメータを取得
   const locate = urlParams.get('locate'); 
   const pc = urlParams.get('pc');
-
-  document.location.href = "https://forms.office.com/Pages/ResponsePage.aspx?id=shWrdFeYT0yCQmXwd0vklGZglZV37-pDpRLcarw05mZUMkEzVUdFODNVNFNNMDc4Szk4RE5LNVdVSy4u&r3e45a8402f8d4587841c252a31898117="+locate+"rd70b9d47aad94be196dedfca7fff9069="+pc;
+for (const [key, value] of urlParams) {
+    console.log(`${key}: ${value}`);
+}
+  
+//  document.location.href = "https://forms.office.com/Pages/ResponsePage.aspx?id=shWrdFeYT0yCQmXwd0vklGZglZV37-pDpRLcarw05mZUMkEzVUdFODNVNFNNMDc4Szk4RE5LNVdVSy4u&r3e45a8402f8d4587841c252a31898117="+locate+"rd70b9d47aad94be196dedfca7fff9069="+pc;
 </script>
 </head>
 <body>
