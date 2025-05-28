@@ -2,7 +2,6 @@ function FindProxyForURL(url, host) {
   if (
     dnsDomainIs(host, "env.b4iine.net")  ||
     dnsDomainIs(host, "cloud.ielove.jp")  ||
-    dnsDomainIs(host, "anabuki-kosan.co.jp")  ||
     dnsDomainIs(host, "mirai-map.anabuki-kosan.co.jp")  ||
     dnsDomainIs(host, "wp.svr.anabuki-kosan.co.jp")  ||
     dnsDomainIs(host, "somu.anabuki-kosan.co.jp") ||
