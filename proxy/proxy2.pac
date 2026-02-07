@@ -8,6 +8,7 @@ function FindProxyForURL(url, host) {
     dnsDomainIs(host, "www.releaseapps.jp") ||
     dnsDomainIs(host, "www.kyc.releaseapps.jp") ||
     dnsDomainIs(host, "auth.releaseapps.jp") ||
+    dnsDomainIs(host, "anabuki.cybozu.com") ||
     dnsDomainIs(host, "anabuki-kosan.cybozu.com") ||
     dnsDomainIs(host, "eisui.anabuki-kosan.co.jp") ||
     dnsDomainIs(host, "manual.anabuki.ne.jp")
