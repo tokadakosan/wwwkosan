@@ -2,6 +2,7 @@
   "name": "api",
   "type": "module",
   "scripts": {
+    "build": "echo 'No build step required for Functions'",
     "dev": "wrangler pages dev .",
     "deploy": "wrangler pages deploy .",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
