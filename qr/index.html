@@ -74,9 +74,9 @@
             btn.innerText = "送信中...";
 
             try {
-                // デプロイ後はこのURLをWorkersの本番URL(例: https://api.yourdomain.workers.dev)に変更してください
-                // ローカル開発時は localhost:8787 などになります
-                const apiUrl = `http://127.0.0.1:8788/submit`;
+                // Cloudflare Pages Functions にデプロイされたAPIを呼び出します
+                // 同じドメイン(ホスト)で動くため、相対パスでアクセス可能です
+                const apiUrl = '/api/submit';
 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
