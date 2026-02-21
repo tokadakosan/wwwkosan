@@ -1,15 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
+
 <head>
-<meta charset="utf-8" />
-<title></title>
-<script type="text/javascript">
-var paramstr = document.location.search;
-var paramstr2 = paramstr.replace("?","");
-document.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSc4B_aE6ks5b1QoOAxTFtqhSBVY5Z-_S3B_4bxJYqf6WxR59g/viewform?usp=pp_url&entry.36634221="+paramstr2;
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>備品受け取りフォーム</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 8px solid #673ab7;
+        }
+    </style>
 </head>
+
 <body>
-<p></p>
+    <div class="form-container">
+        <h2>備品受け取りました</h2>
+        <hr>
+        <div class="mb-3">
+            <label class="form-label">氏名 <span class="text-danger">*</span></label>
+            <input type="text" id="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">テプラ番号 <span class="text-danger">*</span></label>
+            <input type="text" id="tepra" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">その他連絡事項</label>
+            <textarea id="memo" class="form-control"></textarea>
+        </div>
+        <button onclick="submitForm()" id="btn" class="btn btn-primary">送信</button>
+    </div>
+
+    <script>
+        // URLのパラメータから初期値を取得してセットする
+        window.onload = () => {
+            const searchStr = window.location.search.substring(1);
+            if (searchStr) {
+                // `?aaa` のように直接値が入っている場合の処理 (例: ?12345)
+                const firstParam = searchStr.split('&')[0];
+                if (firstParam && !firstParam.includes('=')) {
+                    document.getElementById('tepra').value = decodeURIComponent(firstParam);
+                } else {
+                    // `?tepra=xxx&name=xxx` の場合の処理
+                    const params = new URLSearchParams(window.location.search);
+                    if (params.has('name')) document.getElementById('name').value = params.get('name');
+                    if (params.has('tepra')) document.getElementById('tepra').value = params.get('tepra');
+                }
+            }
+        }
+
+        async function submitForm() {
+            const tepra = document.getElementById('tepra').value;
+            const name = document.getElementById('name').value;
+
+            if (!tepra || !name) {
+                alert("氏名とテプラ番号を入力してください");
+                return;
+            }
+
+            const btn = document.getElementById('btn');
+            btn.disabled = true;
+            btn.innerText = "送信中...";
+
+            try {
+                // デプロイ後はこのURLをWorkersの本番URL(例: https://api.yourdomain.workers.dev)に変更してください
+                // ローカル開発時は localhost:8787 などになります
+                const apiUrl = `http://127.0.0.1:8788/submit`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, tepra: tepra, memo: document.getElementById('memo').value })
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    // 取得したメッセージをセッションストレージに保存してサンクスページへ遷移
+                    sessionStorage.setItem('receivedMessage', result.message);
+                    window.location.href = 'thanks.html';
+                } else {
+                    alert("エラー: " + (result.error || "予期せぬエラーが発生しました"));
+                    btn.disabled = false;
+                    btn.innerText = "送信";
+                }
+            } catch (err) {
+                console.error(err);
+                alert("通信エラーが発生しました");
+                btn.disabled = false;
+                btn.innerText = "送信";
+            }
+        }
+    </script>
 </body>
+
 </html>
