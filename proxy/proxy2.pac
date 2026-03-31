@@ -12,6 +12,7 @@ function FindProxyForURL(url, host) {
     dnsDomainIs(host, "anabuki-kosan.cybozu.com") ||
     dnsDomainIs(host, "eisui.anabuki-kosan.co.jp") ||
     dnsDomainIs(host, "staff.sumumade.jp") ||
+    dnsDomainIs(host, "realtor.sbiaruhi.co.jp") ||
     dnsDomainIs(host, "mirai.anabuki-group.info") ||
     dnsDomainIs(host, "manual.anabuki.ne.jp")
   ) {
