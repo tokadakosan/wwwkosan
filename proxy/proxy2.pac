@@ -15,6 +15,7 @@ function FindProxyForURL(url, host) {
     dnsDomainIs(host, "realtor.sbiaruhi.co.jp") ||
     dnsDomainIs(host, "mirai.anabuki-group.info") ||
     dnsDomainIs(host, "www.anabuki-style.com") ||
+    dnsDomainIs(host, "westjp-tetuke-hosyou.com") ||
     dnsDomainIs(host, "manual.anabuki.ne.jp")
   ) {
     return "PROXY 162.43.87.170:8928";
